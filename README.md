@@ -11,8 +11,29 @@
   - 成功時　-> resolve(引数(関数))
   - 失敗時　-> reject(引数(関数))
   
-- newされたPromiseは関数を持つオブジェクトを返す`then(onFulfilled,onRejected),catch(onRejected)`
+- newされたPromiseは関数を持つオブジェクトを返す
+ - `then(onFulfilled,onRejected),catch(onRejected)`
+ - thenでresolveされた処理、catchでrejectされた処理を受け取る
+ - catchを使用し失敗の処理を記述する。
+ 
+ ### sample code
+ ```js
+ new Promise((res,rej) => {
+  setTimeout(() => {
+    resolve('こんにちは');
+  },1000);
+ })
+ .then((result) => {
+  console.log(result);
+ })
+ .catch((error) => {
+  console.log(error);
+ })
+ ```
+ - 最初の関数の
+ 
 
 
-参考<br>
-[Promise再入門① Promise基本編](https://qiita.com/gcfuji/items/1dfe4265c36bea903ab3)
+#### 参考資料
+- [Promise再入門① Promise基本編](https://qiita.com/gcfuji/items/1dfe4265c36bea903ab3)
+- [Promiseとasync/awaitを始めからていねいに](https://qiita.com/nabepon/items/1be1e83b0d17ee4f42a9)
