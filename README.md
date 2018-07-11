@@ -83,14 +83,32 @@ function_1(3)
 1. `function_1`の非同期処理の完了後、１つ目のthenに移る。
 1. １つ目のthenの中で`function_2`がコールバックで呼ばれる。
 1.　`function_2`の非同期が行われ、resolveから２つ目のthenが呼ばれ、結果としてresultの結果に反映される。
+1. `function_1`が終われば`function_2`が動くというような直列（同期）的な処理となる。
 
 ## Promiseでの並列処理
 
+```js
+const promise1 = new Promise(( resolve, reject ) => {
+  setTimeout(() => {resolve( "1秒経過" )},1000);
+});
 
+const promise2 = new Promise(( resolve, reject ) => {
+	setTimeout(() => {resolve( "2秒経過" )},2000);
+});
 
+const promise3 = new Promise(( resolve, reject ) => {
+  setTimeout(() => {resolve( "3秒経過" )},3000);
+});
 
+Promise.all([
+  promise1,
+  promise2,
+  promise3
+]).then((result)=>{
+  console.log(result[1]);
+});
 
-
+```
 
 
 #### 参考資料
