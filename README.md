@@ -93,7 +93,7 @@ const promise1 = new Promise(( resolve, reject ) => {
 });
 
 const promise2 = new Promise(( resolve, reject ) => {
-	setTimeout(() => {resolve( "2秒経過" )},2000);
+  setTimeout(() => {resolve( "2秒経過" )},2000);
 });
 
 const promise3 = new Promise(( resolve, reject ) => {
