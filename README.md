@@ -107,8 +107,15 @@ Promise.all([
 ]).then((result)=>{
   console.log(result[1]);
 });
-
 ```
+1. Promiseをインスタンス化して変数に設定
+1. `Promise.all([])`の配列部分にインスタンス化した変数を設定
+1. 配列内の処理が全部終了した後にthenに処理が移る
+1. 尚、`result`には各インスタンス内でresolveに設定された値がArrayとして渡ってきている
+1. Promise.all内に渡した特定のresolveを確認する場合にはresult[Index]にて設定を行う。
+
+※all内の処理がすべて完了してから次の処理に移れるという利点。
+
 
 
 #### 参考資料
