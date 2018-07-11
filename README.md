@@ -13,25 +13,84 @@
   
 - newされたPromiseは関数を持つオブジェクトを返す
  - `then(onFulfilled,onRejected),catch(onRejected)`
- - thenでresolveされた処理、catchでrejectされた処理を受け取る
- - catchを使用し失敗の処理を記述する。
  
  ### sample code
  ```js
- new Promise((res,rej) => {
+ new Promise((resolve,reject) => {
   setTimeout(() => {
-    resolve('こんにちは');
+    resolve('こんにちは');①
   },1000);
  })
- .then((result) => {
-  console.log(result);
+ .then((result) => {②
+  console.log(result);　// こんにちは
  })
  .catch((error) => {
   console.log(error);
  })
  ```
- - 最初の関数の
+ or 以下の様に変数に入れてもOK
+ ```js
  
+ const promise = new Promise((resolve, reject)=> {
+  setTimeout(()=> {
+    resolve('こんにちは');
+  })
+ });
+ 
+ promise
+  .then((result)=> {
+    console.log(result); // こんにちは
+  })
+  .catch((error)=> {
+    console.log(error);
+  });
+ 
+ ```
+ 【sample code説明】
+ 1. 最初の関数の中で、resolve①を実行すると、②thenの関数に処理が進む。
+ 1. resolveに渡した引数（ここでいうと'こんにちは'）がthenの引数として渡る。
+ 1. 処理のどこかでerror（rejectが呼ばれる）が起きた場合はthenではなくcatchの関数に処理が進む。
+
+## Promiseでの直列処理
+
+```js 
+const function_1 = (num) => {
+  return new Promise((resolve)=> {
+    setTimeout(()=> {
+      resolve(num);
+    },3000)
+  });
+}
+
+const function_2 = (num) => { //　②
+  return new Promise((resolve)=> {
+    setTimeout(()=> {
+      resolve(num + num);// ③
+    },1000)
+  });
+}
+
+function_1(3)
+  .then(function_2) //　①
+  .then((result)=> {　// ③
+    console.log(result);　//　6
+  })
+  .catch((error)=> {
+    console.log(error);
+  });
+```
+1. thenの中でPromiseを返せば、続けてthenを記載することが可能
+1. `function_1`の非同期処理の完了後、１つ目のthenに移る。
+1. １つ目のthenの中で`function_2`がコールバックで呼ばれる。
+1.　`function_2`の非同期が行われ、resolveから２つ目のthenが呼ばれ、結果としてresultの結果に反映される。
+
+## Promiseでの並列処理
+
+
+
+
+
+
 
 
 #### 参考資料
