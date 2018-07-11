@@ -28,7 +28,7 @@
   console.log(error);
  })
  ```
- or 以下の様に変数に入れてもOK
+ or 以下の様にインスタンス化したものを変数に入れて使ってもOK
  ```js
  
  const promise = new Promise((resolve, reject)=> {
